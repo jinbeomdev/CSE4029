@@ -286,3 +286,10 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+#word, image, zip
+*.docx
+*.pdf
+*.PNG
+*.JPG
+*.pptx
