@@ -34,7 +34,7 @@ void CompareTwoValue(const int a, const int b, int &small, int &large) {
 pair<int, int> FindMinMax(const vector<int> &random_numbers) {
 	int min_value = random_numbers[0], max_value = random_numbers[0];
 
-	for (int i = 1; i < random_numbers.size() - 1; i += 2) {
+	for (int i = 1; i < (int)random_numbers.size() - 1; i += 2) {
 		int small, large;
 
 		CompareTwoValue(random_numbers[i], random_numbers[i + 1],
@@ -55,7 +55,7 @@ pair<int, int> FindMinMax(const vector<int> &random_numbers) {
 int FindMaximum(const vector<int> &random_numbers) {
 	int max_value = random_numbers[0];
 
-	for (int i = 1; i < random_numbers.size(); i++) {
+	for (int i = 1; i < (int)random_numbers.size(); i++) {
 		if (max_value < random_numbers[i]) {
 			max_value = random_numbers[i];
 		}
@@ -67,7 +67,7 @@ int FindMaximum(const vector<int> &random_numbers) {
 int FindMinimum(const vector<int> &random_numbers) {
 	int min_value = random_numbers[0];
 	
-	for (int i = 1; i < random_numbers.size(); i++) {
+	for (int i = 1; i < (int)random_numbers.size(); i++) {
 		if (min_value > random_numbers[i]) {
 			min_value = random_numbers[i];
 		}
