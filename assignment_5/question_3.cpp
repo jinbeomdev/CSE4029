@@ -63,8 +63,15 @@ int main() {
 		}
 	}
 
+	cout << "  ";
+	for (int i = 0; i < n; i++) {
+		cout << i << " ";
+	}
+	cout << endl;
+
 	for (int i = 0; i < m; i++) {
 		for (int j = 0; j < n; j++) {
+			if (j == 0) cout << i << " ";
 			cout << winning_strategy_table[i][j] << " ";
 		}
 		cout << endl;
