@@ -2,6 +2,10 @@
 #ifndef RED_BLACK_TREE_H
 #define RED_BLACK_TREE_H
 
+#include <cassert>
+
+Node* LEAF = nullptr;
+
 enum Color { 
 	RED, BLACK
 };
@@ -38,7 +42,6 @@ private:
 	void InsertCaseFourStepTwo(Node* n);
 
 public:
-	void Insert(Node* n);
 };
 
 #endif
