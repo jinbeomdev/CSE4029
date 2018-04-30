@@ -15,7 +15,7 @@ Node * RedBlackTree::Sibling(Node * n) {
 	Node* p = Parent(n);
 
 	if (p == nullptr) return nullptr;
-	if (p == p->left) {
+	if (n == p->left) {
 		return p->right;
 	} else {
 		return p->left;
@@ -30,21 +30,30 @@ Node * RedBlackTree::Uncle(Node * n) {
 }
 
 void RedBlackTree::RotateLeft(Node * n) {
+	Node* p = Parent(n);
+
+
 	Node* n_new = n->right;
-	assert(n_new != nullptr);
+	assert(n_new != LEAF);
 	n->right = n_new->left;
 	n_new->left = n;
 	n_new->parent = n->parent;
 	n->parent = n_new;
+
+	if(p != nullptr)	p->left = n_new;
 }
 
 void RedBlackTree::RotateRight(Node * n) {
+	Node* p = Parent(n);
+
 	Node* n_new = n->left;
-	assert(n_new != nullptr);
+	assert(n_new != LEAF);
 	n->left = n_new->right;
 	n_new->right = n;
 	n_new->parent = n->parent;
 	n->parent = n_new;
+
+	if (p != nullptr)	p->left = n_new;
 }
 
 Node * RedBlackTree::Insert(Node * root, Node * n) {
@@ -59,7 +68,7 @@ Node * RedBlackTree::Insert(Node * root, Node * n) {
 
 void RedBlackTree::InsertRecurse(Node * root, Node * n) {
 	if (root != nullptr && n->key < root->key) {
-		if (root->left != nullptr) {
+		if (root->left != LEAF) {
 			InsertRecurse(root->left, n);
 			return;
 		}
@@ -67,7 +76,7 @@ void RedBlackTree::InsertRecurse(Node * root, Node * n) {
 			root->left = n;
 		}
 	} else if (root != nullptr) {
-		if (root->right != nullptr) {
+		if (root->right != LEAF) {
 			InsertRecurse(root->right, n);
 			return;
 		} else {
@@ -76,8 +85,8 @@ void RedBlackTree::InsertRecurse(Node * root, Node * n) {
 	}
 
 	n->parent = root;
-	n->left = nullptr;
-	n->right = nullptr;
+	n->left = LEAF;
+	n->right = LEAF;
 	n->color = RED;
 }
 
@@ -119,6 +128,8 @@ void RedBlackTree::InsertCaseFour(Node * n) {
 		RotateRight(p);
 		n = n->right;
 	}
+
+	InsertCaseFourStepTwo(n);
 }
 
 void RedBlackTree::InsertCaseFourStepTwo(Node * n) {
@@ -129,9 +140,9 @@ void RedBlackTree::InsertCaseFourStepTwo(Node * n) {
 		RotateRight(g);
 	} else {
 		RotateLeft(g);
-		p->color = BLACK;
-		g->color = RED;
 	}
+	p->color = BLACK;
+	g->color = RED;
 }
 
 void RedBlackTree::Insert(int n) {
@@ -163,6 +174,7 @@ void RedBlackTree::LevelOrder() {
 		}
 		putchar('\n');
 	}
+	putchar('\n');
 }
 
 void RedBlackTree::InOrder(Node *n) {

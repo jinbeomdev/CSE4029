@@ -22,13 +22,14 @@ struct Node {
 		left = nullptr;
 		key = n;
 		right = nullptr;
-		color = BLACK;
+		color = RED;
 	}
 };
 
 class RedBlackTree {
 private:	
 	Node * root_;
+	Node* LEAF;
 
 	Node* Parent(Node* n);
 	Node* Grandparent(Node* n);
@@ -49,6 +50,8 @@ private:
 public:
 	RedBlackTree() {
 		root_ = nullptr;
+		LEAF = new Node(0);
+		LEAF->color = BLACK;
 	}
 
 	void Insert(int n);

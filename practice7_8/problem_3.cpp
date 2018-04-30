@@ -17,12 +17,21 @@ using namespace std;
 int main() {
 	RedBlackTree *rbt = new RedBlackTree;
 	rbt->Insert(20);
-	rbt->Insert(15);
-	rbt->Insert(14);
-	rbt->Insert(12);
-	rbt->Insert(13);
-	rbt->Insert(1);
+	rbt->LevelOrder();
 
+	rbt->Insert(15);
+	rbt->LevelOrder();
+
+	rbt->Insert(14);
+	rbt->LevelOrder();
+
+	rbt->Insert(12);
+	rbt->LevelOrder();
+
+	rbt->Insert(13);
+	rbt->LevelOrder();
+
+	rbt->Insert(1);
 	rbt->LevelOrder();
 
 	system("pause");
