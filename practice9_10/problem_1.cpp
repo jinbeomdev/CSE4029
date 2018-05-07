@@ -64,7 +64,7 @@ vector<pair<int, int>> Kmp(
 
 		if (text_string[i] == pattern_string[j]) {
 			if (j == pattern_length - 1) {
-				position.push_back({ i - pattern_length , i });
+				position.push_back({ i - pattern_length + 1, i });
 				j = fail[j - 1];
 			} else {
 				j++;
@@ -77,11 +77,62 @@ vector<pair<int, int>> Kmp(
 	return position;
 }
 
+
 vector<pair<int, int>> RabinKarp(
 	char *pattern_string,
 	char *text_string,
+	int base,
+	int mod,
 	int &cnt) {
-	
+	vector<pair<int, int>> position;
+	int pattern_length = strlen(pattern_string);
+	int text_length = strlen(text_string);
+	int pattern_hash = 0, text_hash = 0, power = 1;
+
+	for (int i = 0; i < pattern_length; i++) {
+		pattern_hash = (pattern_hash + pattern_string[pattern_length - 1 - i] * power) % mod;
+		text_hash = (text_hash + text_string[pattern_length - 1 - i] * power) % mod;
+		if (i < pattern_length - 1) power *= base;
+	}
+
+	for (int i = 0; i < text_length - pattern_length + 1; i++) {
+		cnt++;
+		if (text_hash == pattern_hash) {
+			bool is_same = true;
+			
+			for (int j = 0; j < pattern_length; j++) {
+				cnt++;
+				if (text_string[i + j] != pattern_string[j]) {
+					is_same = false;
+					break;
+				}
+			}
+
+			if (is_same) {
+				position.push_back({ i , i + pattern_length - 1 });
+			}
+
+		}
+			text_hash = ((text_hash - text_string[i] * power) * base + text_string[i + pattern_length]) % mod;
+	}
+
+	return position;
+}
+
+void PrintReuslt(const char *algorithm, const vector<pair<int ,int>> &result, const int &comp_cnt) {
+	if (!result.size()) {
+		cout << "#" << algorithm << " COMPARSION" << endl;
+		cout << "Can't find the pattern string in text string" << endl;
+	} else {
+		cout << "#" << algorithm << " COMPARSION" << endl;
+		cout << "#location ";
+		for (pair<int, int> location : result) {
+			cout << "{" << location.first << ", " << location.second << "} ";
+		} cout << endl;
+	}
+	cout << "#" << algorithm << " COMPARSION COUNT : " << comp_cnt
+		<< endl
+		<< endl;
 }
 
 int main() {
@@ -91,36 +142,18 @@ int main() {
 	vector<pair<int, int>> brute_force_result;
 	int brute_force_comp_cnt = 0;
 	brute_force_result = BruteSearch(pattern_string, text_string, brute_force_comp_cnt);
-	if (!brute_force_result.size()) {
-		cout << "#BRUTE FORCE COMPARSION" << endl;
-		cout << "Can't find the pattern string in text string" << endl;
-	} else {
-		cout << "#BRUTE FORCE COMPARSION" << endl;
-		cout << "#location ";
-		for (pair<int, int> location : brute_force_result) {
-			cout << "{" << location.first << ", " << location.second << "} ";
-		} cout << endl;
-	}
-	cout << "#BRUTE FORCE COMPARSION COUNT : " << brute_force_comp_cnt
-		<< endl
-		<< endl;
+	PrintReuslt("BRUTE FORCE", brute_force_result, brute_force_comp_cnt);
+
 
 	vector<pair<int, int>> kmp_result;
 	int kmp_comp_cnt = 0;
 	kmp_result = Kmp(pattern_string, text_string, kmp_comp_cnt);
-	if (!kmp_result.size()) {
-		cout << "#KMP COMPARSION" << endl;
-		cout << "Can't find the pattern string in text string" << endl;
-	} else {
-		cout << "#KMP COMPARSION" << endl;
-		cout << "#location ";
-		for (pair<int, int> location : brute_force_result) {
-			cout << "{" << location.first << ", " << location.second << "} ";
-		} cout << endl;
-	}
-	cout << "#KMP COMPARSION COUNT : " << kmp_comp_cnt
-		<< endl
-		<< endl;
+	PrintReuslt("KMP", kmp_result, kmp_comp_cnt);
+
+	vector<pair<int, int>> rabin_karp_result;
+	int rabin_karp_cnt = 0;
+	rabin_karp_result = RabinKarp(pattern_string, text_string, 2, 10e8, rabin_karp_cnt);
+	PrintReuslt("RABIN KARP", rabin_karp_result, rabin_karp_cnt);
 
 	system("pause");
 }
