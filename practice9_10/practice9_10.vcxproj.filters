@@ -27,5 +27,13 @@
     <ClCompile Include="problem_4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="string_match.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="string_match.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
