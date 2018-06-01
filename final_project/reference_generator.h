@@ -10,7 +10,7 @@ private:
 	uint64_t _genome_size;
 public:
 	ReferenceGenerator() {}
-	ReferenceGenerator(std::string file_name, uint64_t genome_size) :
+	ReferenceGenerator(const std::string file_name, const uint64_t genome_size) :
 		_file_name(file_name),
 		_genome_size(genome_size) {};
 	~ReferenceGenerator() {}

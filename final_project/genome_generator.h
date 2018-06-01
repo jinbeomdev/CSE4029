@@ -11,7 +11,7 @@ private:
 	int _short_read_length;
 public:
 	GenomeGenerator() {}
-	GenomeGenerator(std::string reference_file_name, std::string file_name, int short_read_length = 30) :
+	GenomeGenerator(const std::string reference_file_name, const std::string file_name, const int short_read_length = 30) :
 		_reference_file_name(reference_file_name), _file_name(file_name), _short_read_length(short_read_length) {}
 	~GenomeGenerator() {}
 	bool GenerateGenome();
