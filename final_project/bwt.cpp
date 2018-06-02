@@ -71,3 +71,74 @@ void Bwt::PrintBwtInfo() {
 		std::cout << info.left_walk << " " << info.gene << "(" << info.rank << ")" << std::endl;
 	}
 }
+
+bool Bwt::SearchQuery(const std::string query) {
+	uint64_t start;
+	uint64_t end;
+	switch (query.back()) {
+	case 'A':
+		start = p_sum[0];
+		end = p_sum[1];
+		break;
+	case 'C':
+		start = p_sum[1];
+		end = p_sum[2];
+		break;
+	case 'G':
+		start = p_sum[2];
+		end = p_sum[3];
+		break;
+	case 'T':
+		start = p_sum[3];
+		end = p_sum[4];
+		break;
+	default:
+		assert(false);
+	}
+
+	std::cout << "SEARCHING..." << std::endl;
+	std::cout << "QUERY : " << query << std::endl;
+	for (uint64_t i = start; i < end; i++) {
+		uint64_t next_gene_idx = i;
+		std::cout << query.back();
+		for (int j = query.size() - 2; j >= 0; j--) {
+			std::cout << bwt_info[next_gene_idx].gene;
+			if (next_gene_idx == 0) break;
+			if (query[j] != bwt_info[next_gene_idx].gene) break;
+			if (j == 0) {
+				next_gene_idx = nextGene(next_gene_idx);
+				std::cout << "\nFOUND : " << bwt_info[next_gene_idx].left_walk;
+			}
+			next_gene_idx = nextGene(next_gene_idx);
+		}
+		std::cout << std::endl;
+	}
+	return false;
+}
+
+uint64_t Bwt::nextGene(const int idx) {
+	uint64_t next_gene_idx;
+	char gene = bwt_info[idx].gene;
+	uint64_t rank =  bwt_info[idx].rank;
+	switch (gene) {
+	case 'A':
+		next_gene_idx = p_sum[0] + rank;
+		break;
+	case 'C':
+		next_gene_idx = p_sum[1] + rank;
+		break;
+	case 'G':
+		next_gene_idx = p_sum[2] + rank;
+		break;
+	case 'T':
+		next_gene_idx = p_sum[3] + rank;
+		break;
+	case '$':
+		next_gene_idx = 0;
+		break;
+	default:
+		assert(false);
+	}
+
+	return next_gene_idx;
+}

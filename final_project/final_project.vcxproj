@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{3B8304DF-A979-4819-AABB-57C2A83C7FB2}</ProjectGuid>
-    <RootNamespace>practice12</RootNamespace>
+    <ProjectGuid>{B069503B-A0FB-42D6-9A87-D84AFFD051BF}</ProjectGuid>
+    <RootNamespace>finalproject</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -115,11 +115,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bwt.cpp" />
+    <ClCompile Include="gene_generator_util.cpp" />
+    <ClCompile Include="genome_generator.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="reference_generator.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="string_match.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="string_match.h" />
+    <ClInclude Include="bwt.h" />
+    <ClInclude Include="gene_generator_util.h" />
+    <ClInclude Include="genome_generator.h" />
+    <ClInclude Include="reference_generator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -23,15 +23,16 @@ class Bwt {
 private:
 	std::vector<BwtInfo> bwt_info;
 	uint64_t p_sum[5]; //offset을 계산할 때 사용한다.
+	static bool Comp(const SuffixInfo &a, const SuffixInfo &b);
 public:
 	Bwt() {
 		p_sum[0] = 1;
 	}
 	~Bwt() {}
 	void GenerateBwtInfo(std::ifstream &ifs);
-	static bool Comp(const SuffixInfo &a, const SuffixInfo &b);
 	void PrintBwtInfo();
 	bool SearchQuery(const std::string query);
+	uint64_t nextGene(const int idx);
 };
 
 #endif // !BWT_H
